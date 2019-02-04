@@ -5,10 +5,19 @@ import com.mycompany.myapp.domain.User;
 import com.mycompany.myapp.domain.UserCourse;
 import com.mycompany.myapp.domain.dto.CourseDto;
 import com.mycompany.myapp.domain.dto.CourseWithTNDto;
+import com.mycompany.myapp.domain.dto.TeacherDto;
 import com.mycompany.myapp.repository.CourseRepository;
 import com.mycompany.myapp.repository.UserCourseRepository;
+import com.zaxxer.hikari.HikariDataSource;
+
 import org.checkerframework.checker.units.qual.A;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +28,8 @@ import java.util.Optional;
 @Service
 @Transactional
 public class CourseService {
+    private final Logger log = LoggerFactory.getLogger(CourseService.class);
+    
     @Autowired
     private CourseRepository courseRepository;
 
@@ -41,6 +52,26 @@ public class CourseService {
     }
 
     public List<CourseDto> findAllCoursesDtoFromDB(){
+    	List<TeacherDto> teachers = courseRepository.findTeachers();
+    	for (TeacherDto teacher : teachers) {
+    		log.debug("Teacher first name!!!!!!" + teacher.getFirstName());
+    	}
+    	
+    	List<User> teachers3 = userService.allTeachers();
+    	for (User u : teachers3) {
+    		log.debug("Teacher2 first name!!!!!!" + u.getFirstName());
+    	}
+    	
+
+//        LocalSessionFactoryBuilder sessionBuilder = new LocalSessionFactoryBuilder(dataSource);
+//        sessionBuilder.scanPackages("com.mycompany.myapp.domain");
+//        SessionFactory sessionFactory = sessionBuilder.buildSessionFactory();
+//    	Session session = sessionFactory.openSession();
+//    	List<User> teachers2 = session.createCriteria(User.class).add(Restrictions.eq("user_type", "teacher")).list();
+//    	for (User u : teachers2) {
+//    		log.debug("Teacher2 first name!!!!!!" + u.getFirstName());
+//    	}
+//    	
         return courseRepository.findAllCoursesDto();
     }
 

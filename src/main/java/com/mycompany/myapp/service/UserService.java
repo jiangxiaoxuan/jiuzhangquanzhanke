@@ -51,6 +51,10 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
     }
+    
+    public List<User> allTeachers() {
+    	return userRepository.findAllByUserType("teacher");
+    }
 
     public Optional<User> activateRegistration(String key) {
         log.debug("Activating user for activation key {}", key);

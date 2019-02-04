@@ -23,7 +23,6 @@ import java.time.Instant;
  */
 @Entity
 @Table(name = "jhi_user")
-
 public class User extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -81,6 +80,10 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @Column(name = "reset_date")
     private Instant resetDate = null;
+
+    @Size(max = 16)
+    @Column(name = "user_type", length = 16)
+    private String userType;
 
     @JsonIgnore
     @ManyToMany

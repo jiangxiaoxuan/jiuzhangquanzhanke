@@ -502,8 +502,8 @@
                     <driver>com.mysql.jdbc.Driver</driver>
                     <url>jdbc:mysql://localhost:3306/jiuzhangquanzhanke</url>
                     <defaultSchemaName>jiuzhangquanzhanke</defaultSchemaName>
-                    <username>root</username>
-                    <password>Guo281999$</password>
+                    <username>jiuzhang</username>
+                    <password>jiuzhang</password>
                     <referenceUrl>hibernate:spring:com.mycompany.myapp.domain?dialect=org.hibernate.dialect.MySQL5InnoDBDialect&amp;hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&amp;hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy</referenceUrl>
                     <verbose>true</verbose>
                     <logging>debug</logging>
