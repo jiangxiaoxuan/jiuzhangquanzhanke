@@ -1,5 +1,6 @@
 package com.mycompany.myapp.web.rest;
 
+import com.mycompany.myapp.domain.UserCourse;
 import com.mycompany.myapp.domain.dto.CourseDto;
 import com.mycompany.myapp.domain.dto.CourseWithTNDto;
 import com.mycompany.myapp.service.CourseService;
@@ -42,6 +43,18 @@ public class CourseController {
 
         return new ResponseEntity<>(allCourses, HttpStatus.OK);
     }
+    
+    @GetMapping(path = "/api/course/findAllUserCourses", produces = "application/json")
+    public HttpEntity<List<UserCourse>> findAllUserCourses() {
+    	try {
+	    	List<UserCourse> allUserCourses = courseService.findAllUserCourses();
+	    	return new ResponseEntity<>(allUserCourses, HttpStatus.OK);
+	    } catch (Exception e) {
+	        return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+    }
+    
+    
 
     @PostMapping(path = "/api/course/registerCourse/{courseName}", produces = "application/json")
     public HttpStatus registerCourse(@PathVariable String courseName) {
@@ -74,12 +87,12 @@ public class CourseController {
     }
 
     @DeleteMapping(path = "/api/course/deleteCourse/{courseName}", produces = "application/json")
-    public HttpStatus deleteCourse(@NotNull @PathVariable("courseName") String courseName) {
+    public HttpEntity deleteCourse(@NotNull @PathVariable("courseName") String courseName) {
         try {
             courseService.deleteCourse(courseName);
-            return HttpStatus.OK;
+            return new ResponseEntity<>(null, HttpStatus.OK);
         } catch (Exception e) {
-            return HttpStatus.BAD_REQUEST;
+        	return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

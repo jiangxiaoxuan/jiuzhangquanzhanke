@@ -6,6 +6,7 @@ import { LoginModalService, Principal, Account } from 'app/core';
 import { CourseService } from 'app/shared/service/CourseService';
 import { CourseDto } from 'app/shared/model/course-dto.model';
 import { CourseWithTNDto } from 'app/shared/model/courseWithTN-dto.model';
+import { UserCourseDto } from 'app/shared/model/userCourse-dto.model';
 
 @Component({
     selector: 'jhi-home',
@@ -27,6 +28,8 @@ export class HomeComponent implements OnInit {
     courses: CourseDto[] = [];
 
     coursesWithTN: CourseWithTNDto[] = [];
+
+    userCourses: UserCourseDto[] = [];
 
     ngOnInit() {
         this.principal.identity().then(account => {
@@ -62,11 +65,11 @@ export class HomeComponent implements OnInit {
     }
 
     getAllCoursesWithTN() {
-        this.courseService.getCourseInfoWithTN().subscribe(curDto => {
-            if (!curDto) {
-                this.coursesWithTN = [];
+        this.courseService.userCourse().subscribe(userCourseDto => {
+            if (!userCourseDto) {
+                this.userCourses = [];
             } else {
-                this.coursesWithTN = curDto;
+                this.userCourses = userCourseDto;
             }
         });
     }

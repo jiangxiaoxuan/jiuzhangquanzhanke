@@ -55,6 +55,9 @@ public class CourseService {
         return courseRepository.findAllCoursesDtoWithTeacherName();
     }
 
+    public List<UserCourse> findAllUserCourses() {
+        return userCourseRepository.findAll();
+    }
 
     public void registerCourse(String courseName) throws Exception{
         Optional<User> curUser = userService.getUserWithAuthorities();
