@@ -1,5 +1,6 @@
 package com.mycompany.myapp.service;
 
+import com.mycompany.myapp.domain.Authority;
 import com.mycompany.myapp.domain.Course;
 import com.mycompany.myapp.domain.User;
 import com.mycompany.myapp.domain.UserCourse;
@@ -15,8 +16,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -55,8 +58,22 @@ public class CourseService {
         return courseRepository.findAllCoursesDtoWithTeacherName();
     }
 
-    public List<UserCourse> findAllUserCourses() {
-        return userCourseRepository.findAll();
+    public List<UserCourse> findAllUserCourses() throws Exception {
+        Optional<User> curUser = userService.getUserWithAuthorities();
+        if (!curUser.isPresent()) {
+        	throw new Exception("Sorry no user available.");
+        }
+        
+        Set<String> roles = new HashSet<>();
+        for (Authority a : curUser.get().getAuthorities()) {
+        	roles.add(a.getName());
+        }
+        
+        if (roles.contains("ROLE_ADMIN")) {
+            return userCourseRepository.findAll();
+        }
+        
+        return userCourseRepository.findAllByUser(curUser.get());
     }
 
     public void registerCourse(String courseName) throws Exception{
