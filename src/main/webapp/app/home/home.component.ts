@@ -81,6 +81,15 @@ export class HomeComponent implements OnInit {
         });
     }
 
+    registerCourse(courseName: String) {
+        this.courseService.registerCourse(courseName).subscribe(response => {
+            if (response.ok == false) {
+                return;
+            }
+            // TODO(jxx):update UI
+        });
+    }
+
     clearAllCourses() {
         this.courses = [];
     }

@@ -34,7 +34,7 @@
                     <div>{{course.courseLocation}}</div>
                     <div>{{course.courseContent}}</div>
                     <div>{{course.teacherId}}</div>
-                    <button>注册</button>
+                    <button (click)="registerCourse(course.courseName)">注册</button>
                     <button (click)="deleteCourse(course.courseName)">删除</button>
                  </div>
             </div>
