@@ -73,7 +73,7 @@ public class CourseController {
         }
     }
 
-    @DeleteMapping(path = "/api/course/deleteCourse/{courseName}", produces = "application/js")
+    @DeleteMapping(path = "/api/course/deleteCourse/{courseName}", produces = "application/json")
     public HttpStatus deleteCourse(@NotNull @PathVariable("courseName") String courseName) {
         try {
             courseService.deleteCourse(courseName);

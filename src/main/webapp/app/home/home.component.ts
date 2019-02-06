@@ -73,11 +73,11 @@ export class HomeComponent implements OnInit {
 
     deleteCourse(courseName: String) {
         this.courseService.delete(courseName).subscribe(response => {
-            if (!response.ok) {
+            if (response.ok == false) {
                 return;
             }
 
-            this.courses = this.courses.filter(course => course.courseName === courseName);
+            this.courses = this.courses.filter(course => course.courseName !== courseName);
         });
     }
 
