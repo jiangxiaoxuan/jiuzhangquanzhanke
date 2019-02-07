@@ -79,12 +79,16 @@ public class CourseService {
     public void registerCourse(String courseName) throws Exception{
         Optional<User> curUser = userService.getUserWithAuthorities();
         Optional<Course> curCourse = courseRepository.findCourseByCourseName(courseName);
+       
 
         if (curUser.isPresent() && curCourse.isPresent()){
-            userCourseRepository.save(UserCourse.builder()
-                .user(curUser.get())
-                .course(curCourse.get())
-                .build());
+        	List<User> user = userCourseRepository.findAllByCourse(curCourse.get());
+        	if (user.isEmpty()) {
+	            userCourseRepository.save(UserCourse.builder()
+	                .user(curUser.get())
+	                .course(curCourse.get())
+	                .build());
+        	}
         } else {
             throw new Exception("UnExpected Exception");
         }
