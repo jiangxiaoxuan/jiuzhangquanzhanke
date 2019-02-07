@@ -100,7 +100,7 @@ export class HomeComponent implements OnInit {
             if (response.ok == false) {
                 return;
             }
-            // TODO(jxx):update UI
+            this.getUserCourses();
         });
     }
 
