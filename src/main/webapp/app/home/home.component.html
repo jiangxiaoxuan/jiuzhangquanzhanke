@@ -35,7 +35,9 @@
                     <div>{{course.courseContent}}</div>
                     <div>{{course.teacherId}}</div>
                     <button (click)="registerCourse(course.courseName)">注册</button>
-                    <button (click)="deleteCourse(course.courseName)">删除</button>
+                    <div *ngIf = "isAdmin()">
+                        <button (click)="deleteCourse(course.courseName)">删除</button>
+                    </div>
                  </div>
             </div>
         </div>
