@@ -138,7 +138,7 @@ public class CourseService {
         if (curUser.isPresent() && curCourse.isPresent()){
         	List<UserCourse> userCourse = userCourseRepository.findAllByCourseAndUser(curCourse.get(), curUser.get());
         	if (!userCourse.isEmpty()) {
-	            userCourseRepository.removeByCourse(curCourse.get());
+	            userCourseRepository.removeByCourseAndUser(curCourse.get(),curUser.get());
         	}
         } else {
             throw new Exception("UnExpected Exception");

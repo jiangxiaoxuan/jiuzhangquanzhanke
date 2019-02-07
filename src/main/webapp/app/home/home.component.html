@@ -52,9 +52,9 @@
                     <div>{{course.course.courseContent}}</div>
                     <div>{{course.user.firstName}}</div>
 
-                    <!-- <div *ngIf="isAuthenticated() && !isAdmin()"> -->
+                    <div *ngIf="isAuthenticated()"> 
                         <button (click)="dropCourse(course.course.courseName)">不想上了！</button>
-                    <!-- </div> -->
+                    </div> 
                 </div>
             </div>
         </div>
