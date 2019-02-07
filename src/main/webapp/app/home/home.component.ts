@@ -87,11 +87,8 @@ export class HomeComponent implements OnInit {
 
     deleteCourse(courseName: String) {
         this.courseService.delete(courseName).subscribe(response => {
-            if (response.ok == false) {
-                return;
-            }
-
             this.courses = this.courses.filter(course => course.courseName !== courseName);
+            this.getAllCourses();
         });
     }
 
@@ -120,8 +117,8 @@ export class HomeComponent implements OnInit {
         });
     }
 
-    dropCourse(courseName: String) {
-        this.courseService.drop(courseName).subscribe(response => {
+    dropCourse(userCourse: UserCourseDto) {
+        this.courseService.drop(userCourse).subscribe(response => {
             this.getUserCourses();
         });
     }
