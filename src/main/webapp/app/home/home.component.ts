@@ -17,6 +17,10 @@ export class HomeComponent implements OnInit {
     account: Account;
     modalRef: NgbModalRef;
     classeNameNeedToReg: string;
+    newCourseName: string;
+    newCourseLocation: string;
+    newCourseContent: string;
+    newCourseTeacher: number;
 
     constructor(
         private principal: Principal,
@@ -50,6 +54,13 @@ export class HomeComponent implements OnInit {
         return this.principal.isAuthenticated();
     }
 
+    isAdmin() {
+        for (const a of this.account.authorities) {
+            if (a === 'ROLE_ADMIN') return true;
+        }
+        return false;
+    }
+
     login() {
         this.modalRef = this.loginModalService.open();
     }
@@ -64,7 +75,7 @@ export class HomeComponent implements OnInit {
         });
     }
 
-    getAllCoursesWithTN() {
+    getUserCourses() {
         this.courseService.userCourse().subscribe(userCourseDto => {
             if (!userCourseDto) {
                 this.userCourses = [];
@@ -93,7 +104,27 @@ export class HomeComponent implements OnInit {
         });
     }
 
+    addCourse() {
+        var newCourse: CourseDto = {
+            courseName: this.newCourseName,
+            courseLocation: this.newCourseLocation,
+            courseContent: this.newCourseContent,
+            teacherId: this.newCourseTeacher
+        };
+        this.courseService.add(newCourse).subscribe(response => {
+            if (response.ok == false) {
+                return;
+            } else {
+                this.courses.push(newCourse);
+            }
+        });
+    }
+
     clearAllCourses() {
         this.courses = [];
+    }
+
+    clearUserCourses() {
+        this.userCourses = [];
     }
 }

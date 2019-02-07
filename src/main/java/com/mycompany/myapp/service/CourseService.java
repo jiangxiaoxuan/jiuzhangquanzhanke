@@ -109,7 +109,6 @@ public class CourseService {
         } catch (Exception e){
             throw new Exception(e.getMessage());
         }
-
     }
 
     public void deleteCourse(String courseName) throws Exception{
