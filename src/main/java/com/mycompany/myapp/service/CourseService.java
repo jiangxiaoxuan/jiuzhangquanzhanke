@@ -131,15 +131,12 @@ public class CourseService {
         }
     }
     
-    public void dropCourse(String courseName) throws Exception {
+    public void dropCourse(UserCourse userCourse) throws Exception {
         Optional<User> curUser = userService.getUserWithAuthorities();
-        Optional<Course> curCourse = courseRepository.findCourseByCourseName(courseName);
+        Optional<Course> curCourse = courseRepository.findCourseByCourseName(userCourse.getCourse().getCourseName());
         
-        if (curUser.isPresent() && curCourse.isPresent()){
-        	List<UserCourse> userCourse = userCourseRepository.findAllByCourseAndUser(curCourse.get(), curUser.get());
-        	if (!userCourse.isEmpty()) {
-	            userCourseRepository.removeByCourseAndUser(curCourse.get(),curUser.get());
-        	}
+        if (curUser.isPresent() && curUser.get().getLogin().equals(userCourse.getUser().getLogin()) && curCourse.isPresent()){
+            userCourseRepository.delete(userCourse);
         } else {
             throw new Exception("UnExpected Exception");
         }

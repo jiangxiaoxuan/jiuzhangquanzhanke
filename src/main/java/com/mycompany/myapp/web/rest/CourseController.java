@@ -97,10 +97,10 @@ public class CourseController {
     }
     
     
-    @DeleteMapping(path = "/api/course/dropCourse/{courseName}", produces = "application/json")
-    public HttpEntity dropCourse(@NotNull @PathVariable("courseName") String courseName) {
+    @PutMapping(path = "/api/course/dropCourse", produces = "application/json")
+    public HttpEntity dropCourse(@RequestBody @NotNull UserCourse userCourse) {
     	try {
-    		courseService.dropCourse(courseName);
+    		courseService.dropCourse(userCourse);
     		return new ResponseEntity<>(null, HttpStatus.OK);
     	} catch (Exception e) {
     		return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

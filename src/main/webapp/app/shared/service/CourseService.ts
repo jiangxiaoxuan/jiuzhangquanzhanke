@@ -35,10 +35,6 @@ export class CourseService {
         return this.http.delete<Response>(`${this.courseDeleteUrl}/${courseName}`);
     }
 
-    drop(courseName: String): Observable<Response> {
-        return this.http.delete<Response>(`${this.courseDropUrl}/${courseName}`);
-    }
-
     update(course: CourseDto): Observable<Response> {
         return this.http.put<Response>(this.courseUpdateUrl, course);
     }
@@ -49,5 +45,9 @@ export class CourseService {
 
     add(course: CourseDto): Observable<Response> {
         return this.http.post<Response>(this.courseAddUrl, course);
+    }
+
+    drop(userCourse: UserCourseDto): Observable<Response> {
+        return this.http.put<Response>(this.courseDropUrl, userCourse);
     }
 }

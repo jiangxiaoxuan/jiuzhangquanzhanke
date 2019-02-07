@@ -53,7 +53,7 @@
                     <div>{{course.user.firstName}}</div>
 
                     <div *ngIf="isAuthenticated()"> 
-                        <button (click)="dropCourse(course.course.courseName)">不想上了！</button>
+                        <button (click)="dropCourse(course)">不想上了！</button>
                     </div> 
                 </div>
             </div>
