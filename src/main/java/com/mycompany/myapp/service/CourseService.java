@@ -82,12 +82,14 @@ public class CourseService {
        
 
         if (curUser.isPresent() && curCourse.isPresent()){
-        	List<User> user = userCourseRepository.findAllByCourse(curCourse.get());
-        	if (user.isEmpty()) {
+        	List<UserCourse> userCourse = userCourseRepository.findAllByCourseAndUser(curCourse.get(), curUser.get());
+        	if (userCourse.isEmpty()) {
 	            userCourseRepository.save(UserCourse.builder()
 	                .user(curUser.get())
 	                .course(curCourse.get())
 	                .build());
+        	} else {
+        		throw new Exception("UnExpected Exception 2");
         	}
         } else {
             throw new Exception("UnExpected Exception");
@@ -127,6 +129,21 @@ public class CourseService {
         } catch (Exception e){
             throw new Exception(e.getMessage());
         }
+    }
+    
+    public void dropCourse(String courseName) throws Exception {
+        Optional<User> curUser = userService.getUserWithAuthorities();
+        Optional<Course> curCourse = courseRepository.findCourseByCourseName(courseName);
+        
+        if (curUser.isPresent() && curCourse.isPresent()){
+        	List<UserCourse> userCourse = userCourseRepository.findAllByCourseAndUser(curCourse.get(), curUser.get());
+        	if (!userCourse.isEmpty()) {
+	            userCourseRepository.removeByCourse(curCourse.get());
+        	}
+        } else {
+            throw new Exception("UnExpected Exception");
+        }
+        
     }
 
 

@@ -95,4 +95,15 @@ public class CourseController {
         	return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    
+    
+    @DeleteMapping(path = "/api/course/dropCourse/{courseName}", produces = "application/json")
+    public HttpEntity dropCourse(@NotNull @PathVariable("courseName") String courseName) {
+    	try {
+    		courseService.dropCourse(courseName);
+    		return new ResponseEntity<>(null, HttpStatus.OK);
+    	} catch (Exception e) {
+    		return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    	}
+    }
 }

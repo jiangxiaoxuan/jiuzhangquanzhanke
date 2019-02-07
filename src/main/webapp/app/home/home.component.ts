@@ -120,6 +120,12 @@ export class HomeComponent implements OnInit {
         });
     }
 
+    dropCourse(courseName: String) {
+        this.courseService.drop(courseName).subscribe(response => {
+            this.getUserCourses();
+        });
+    }
+
     clearAllCourses() {
         this.courses = [];
     }

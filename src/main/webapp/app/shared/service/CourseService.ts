@@ -11,6 +11,7 @@ export class CourseService {
     private courseAddressUrl = SERVER_API_URL + '/api/course/findAllCoursesDto';
     private courseAddressWithTNUrl = SERVER_API_URL + '/api/course/findAllCoursesWithTNDto';
     private courseDeleteUrl = SERVER_API_URL + '/api/course/deleteCourse';
+    private courseDropUrl = SERVER_API_URL + '/api/course/dropCourse';
     private courseUpdateUrl = SERVER_API_URL + '/api/course/updateCourse';
     private courseRegisterUrl = SERVER_API_URL + '/api/course/registerCourse';
     private userCourseUrl = SERVER_API_URL + '/api/course/findAllUserCourses';
@@ -32,6 +33,10 @@ export class CourseService {
 
     delete(courseName: String): Observable<Response> {
         return this.http.delete<Response>(`${this.courseDeleteUrl}/${courseName}`);
+    }
+
+    drop(courseName: String): Observable<Response> {
+        return this.http.delete<Response>(`${this.courseDropUrl}/${courseName}`);
     }
 
     update(course: CourseDto): Observable<Response> {

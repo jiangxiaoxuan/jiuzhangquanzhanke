@@ -13,6 +13,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface UserCourseRepository extends JpaRepository<UserCourse, Long>{
 	
 	List<UserCourse> findAllByUser(User user);
-	List<User> findAllByCourse(Course course);
+	List<UserCourse> findAllByCourseAndUser(Course course, User user);
+	List<UserCourse> removeByCourse(Course course);
 
 }
